@@ -1,0 +1,11 @@
+﻿  display.cpp
+  Main.cpp
+  mesh.cpp
+  shader.cpp
+  texture.cpp
+  Generating code
+  354 of 557 functions (63.6%) were compiled, the rest were copied from previous compilation.
+    347 functions were new in current compilation
+    16 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Sandbox.vcxproj -> C:\dev\GL_ENGINE\Sandbox - Copy\bin\x64\Release\Sandbox.exe
