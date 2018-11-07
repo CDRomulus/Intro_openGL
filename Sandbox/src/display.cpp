@@ -53,19 +53,27 @@ void Display::Clear(float r, float g, float b, float a)
 	glClearColor(r,g,b,a);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
-
-void Display::Update(Camera& camera)//SWAP BUFFERS
+void Display::DisplayUpdate(Camera& camera)
+{
+	UpdateInput(camera);
+	UpdateBuffer();
+}
+void Display::UpdateBuffer()//SWAP BUFFERS
 {
 	
 	SDL_GL_SwapWindow(m_window);
+	
+
+}
+void Display::UpdateInput(Camera& camera)
+{
 	SDL_Event e;
 	/*if(cameraSpeed==cameraShift)
 	std::cout << "Shift" << std::endl;*/
 	while (SDL_PollEvent(&e))
 	{
 		isShiftPressed = false;
-		
-		
+
 		switch (e.type)
 		{
 		case SDL_QUIT:
@@ -79,34 +87,33 @@ void Display::Update(Camera& camera)//SWAP BUFFERS
 				m_isClosed = true;
 				break;
 			case SDLK_w:
-				printf("w\n");
-				camera.SetCameraPos(camera.GetCameraPos()+(cameraSpeed*camera.GetCameraFront()));
+				
+				camera.SetCameraPos(camera.GetCameraPos() + (cameraSpeed*camera.GetCameraFront()));
 				//cameraPos += cameraSpeed * cameraFront;
 				break;
 			case SDLK_s:
-				printf("s\n");
+				
 				camera.SetCameraPos(camera.GetCameraPos() - (cameraSpeed*camera.GetCameraFront()));
 				//cameraPos -= cameraSpeed * cameraFront;
 				break;
 			case SDLK_a:
-				printf("a\n");
 				
+
 				camera.SetCameraPos(camera.GetCameraPos() + (glm::normalize(glm::cross(camera.GetCameraFront(), camera.GetCameraUp()))*cameraSpeed));
 				//cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-				
+
 				break;
-			case SDLK_d:
-				printf("d\n");
+			case SDLK_d:				
 				camera.SetCameraPos(camera.GetCameraPos() - (glm::normalize(glm::cross(camera.GetCameraFront(), camera.GetCameraUp()))*cameraSpeed));
 				//cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 				break;
 			case SDLK_LSHIFT:
-				
+
 				if (cameraSpeed == cameraShift)
 					cameraSpeed = cameraDefault;
 				else if (cameraSpeed == cameraDefault)
-					cameraSpeed = cameraShift;				
-				
+					cameraSpeed = cameraShift;
+
 				break;
 			case SDLK_SPACE:
 				printf("space\n");
@@ -115,33 +122,31 @@ void Display::Update(Camera& camera)//SWAP BUFFERS
 			case SDLK_LCTRL:
 				printf("LCTR\n");
 
-				break;			
-			default:				
-				break;	
+				break;
+			default:
+				break;
 
-			}			
-		//case SDL_KEYUP:
-		//	switch (e.key.keysym.sym) 
-		//	{
-		//	case SDLK_LSHIFT:
-		//		/* We check to make sure the alien is moving */
-		//		/* to the left. If it is then we zero the    */
-		//		/* velocity. If the alien is moving to the   */
-		//		/* right then the right key is still press   */
-		//		/* so we don't tocuh the velocity            */
-		//		if (isShiftPressed == false)
-		//			cameraSpeed = cameraDefault;
-		//		break;
-		//	
-		//	default:
-		//		break;
-		//	}
+			}
+			//case SDL_KEYUP:
+			//	switch (e.key.keysym.sym) 
+			//	{
+			//	case SDLK_LSHIFT:
+			//		/* We check to make sure the alien is moving */
+			//		/* to the left. If it is then we zero the    */
+			//		/* velocity. If the alien is moving to the   */
+			//		/* right then the right key is still press   */
+			//		/* so we don't tocuh the velocity            */
+			//		if (isShiftPressed == false)
+			//			cameraSpeed = cameraDefault;
+			//		break;
+			//	
+			//	default:
+			//		break;
+			//	}
 		default:
 			break;
-			
+
 		}
-		
+
 	}
-
 }
-

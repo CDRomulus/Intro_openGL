@@ -13,10 +13,11 @@
 const unsigned int SCR_WIDTH = 1200;
 const unsigned int SCR_HEIGHT = 720;
 const unsigned int FOV = 80;
+const char* exeName[] = { "Sandbox\n" };
 
 int wmain()
 {
-	Display display((int)SCR_WIDTH, (int)SCR_HEIGHT, "Sandbox");
+	Display display((int)SCR_WIDTH, (int)SCR_HEIGHT, *exeName);
 
 	
 	Vertex vertices[] = { Vertex(glm::vec3( 0.0,-0.5, 0.0),glm::vec2(0.0,0.0)),
@@ -26,6 +27,9 @@ int wmain()
 						  Vertex(glm::vec3( 0.0, -0.5, 0.0),glm::vec2(0.5,1.0)),
 						  Vertex(glm::vec3(-0.5, 0.5, 0.0),glm::vec2(1.0,0.0))
 	};
+
+
+
 	Mesh mesh(vertices, sizeof(vertices)/sizeof(vertices[0]));
 	Shader shader("res/shaders/basicShader");
 	Texture texture("res/textures/testPicture.jpg");
@@ -36,14 +40,14 @@ int wmain()
 	float counter = 0.0f;
 	while (!display.IsClosed())
 	{
-		display.Clear(0.5, 0.0f, 0.5f, 1.0f);
+		display.Clear(0.0, 0.2f, 0.2f, 1.0f);
 
 		float sinCounter = sinf(counter);
 		float cosCounter = cosf(counter);		
 
-		/*transform.GetPos().x = sinCounter;
+		transform.GetPos().x = sinCounter;
 		transform.GetRot().z = counter * 5;
-		transform.SetRot(glm::vec3(cosCounter, cosCounter, cosCounter));*/
+		transform.SetRot(glm::vec3(cosCounter, cosCounter, cosCounter));
 
 
 		shader.Bind();		
@@ -51,18 +55,14 @@ int wmain()
 		shader.Update(transform, camera);
 		mesh.Draw();
 
-		display.Update(camera);
-
+		display.DisplayUpdate(camera);
 
 		counter += 0.01f;
-
-
 
 		if (display.IsClosed()==true)
 		{
 			display.~Display();
 			return 0;
-
 		}
 	}
 	

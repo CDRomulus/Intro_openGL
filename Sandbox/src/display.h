@@ -13,9 +13,9 @@ public:
 	~Display();
 	void Clear(float r, float g, float b, float a);
 	bool IsClosed();
-	
-	void Update(Camera& camera);//SWAP BUFFERS
-
+	void DisplayUpdate(Camera& camera);
+	void UpdateBuffer();//SWAP BUFFERS
+	void UpdateInput(Camera& camera);
 private:
 	SDL_Window* m_window;
 	SDL_GLContext m_glContext;

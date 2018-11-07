@@ -1,7 +1,2 @@
-﻿  display.cpp
-  Main.cpp
-  mesh.cpp
-  shader.cpp
-  texture.cpp
-  Generating Code...
+﻿  Main.cpp
   Sandbox.vcxproj -> C:\dev\github\Intro_openGL\bin\x64\Debug\Sandbox.exe
